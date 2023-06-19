@@ -1,0 +1,41 @@
+import React, { useState } from 'react';
+
+const ColorPicker = ({ colors }) => {
+  const [isColorListVisible, setIsColorListVisible] = useState(false);
+  const [selectedColor, setSelectedColor] = useState(null);
+
+  const handleButtonClick = () => {
+    setIsColorListVisible(!isColorListVisible);
+  };
+
+  const handleColorClick = (color) => {
+    setSelectedColor(color);
+    setIsColorListVisible(false);
+  };
+
+  return (
+    <div style={{margin: "200px"}}>
+      <button style={{border: "2px solid black"}} onClick={handleButtonClick}>Pick a color</button>
+      {isColorListVisible && (
+        <ul>
+          {colors.map((color, index) => (
+            <li key={index} onClick={() => handleColorClick(color)}>
+              <div
+                style={{
+                  backgroundColor: color,
+                  width: '20px',
+                  height: '20px',
+                  margin: '5px',
+                }}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
+      {selectedColor && <p>Selected color: {selectedColor}</p>}
+    </div>
+  );
+};
+
+export default ColorPicker;
+
